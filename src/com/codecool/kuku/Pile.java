@@ -6,10 +6,8 @@ import java.util.ArrayList;
 public class Pile {
 
     private List<Card> cards;
-    private String pileOwner;
 
     public Pile(String pileOwner) {
-        this.pileOwner = pileOwner;
         cards = new ArrayList<Card>();
     }
 
@@ -20,6 +18,5 @@ public class Pile {
     public ArrayList<Card> getCards() {
         return ArrayList<Card> cards;
     }
-
 }
 
