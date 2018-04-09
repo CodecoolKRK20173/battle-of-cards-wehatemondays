@@ -17,8 +17,8 @@ public class Pile {
         return pileOwner;
     }
 
-    public List<Card> getCards() {
-        return List<Card> cards;
+    public ArrayList<Card> getCards() {
+        return ArrayList<Card> cards;
     }
 
 }
