@@ -21,7 +21,18 @@ public class Pile {
         Collections.shuffle(cards);
     }
 
-
+    public void passCard(Card card, Pile destPile) {
+        cards.remove(card);
+        destPile.add(card);
+        // dest pile, card
+        // reimplement equals to remove card: 
+    // public boolean equals(Card card) {
+    //     if (card.getRank() == this.rank() && card.getSuit() == this.suit()){
+    //         return true;
+    //     }
+    //     return false;
+    // }
+    }
 
     public void addCard(Card card) {
         cards.add(card);
