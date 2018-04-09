@@ -2,6 +2,7 @@ package com.codecool.kuku;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Pile {
 
@@ -12,12 +13,15 @@ public class Pile {
     }
 
     public void createDeckInPile() {
-        for (Suit suit : Suit.values()) {
-            for (Rank rank : Rank.values()) {
+        for (SuitEnum suit : SuitEnum.values()) {
+            for (RankEnum rank : RankEnum.values()) {
                 cards.add(new Card(suit, rank));
             }
         }
+        Collections.shuffle(cards);
     }
+
+
 
     public String getPileOwner() {
         return pileOwner;
