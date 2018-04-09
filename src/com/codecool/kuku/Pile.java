@@ -45,5 +45,11 @@ public class Pile {
     public ArrayList<Card> getCards() {
         return ArrayList<Card> cards;
     }
+
+    public void toString() {
+        for (Card card : cards) {
+            System.out.println(card);
+        }
+    }
 }
 
