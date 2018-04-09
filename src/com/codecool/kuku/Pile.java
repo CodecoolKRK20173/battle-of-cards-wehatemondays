@@ -23,6 +23,10 @@ public class Pile {
 
 
 
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
     public String getPileOwner() {
         return pileOwner;
     }
