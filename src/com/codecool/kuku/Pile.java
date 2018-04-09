@@ -13,6 +13,13 @@ public class Pile {
         cards = new ArrayList<Card>();
     }
 
+    public String getPileOwner() {
+        return pileOwner;
+    }
+
+    public List<Card> getCards() {
+        return List<Card> cards;
+    }
 
 }
 
