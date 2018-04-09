@@ -11,6 +11,14 @@ public class Pile {
         cards = new ArrayList<Card>();
     }
 
+    public void createDeckInPile() {
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
+                cards.add(new Card(suit, rank));
+            }
+        }
+    }
+
     public String getPileOwner() {
         return pileOwner;
     }
