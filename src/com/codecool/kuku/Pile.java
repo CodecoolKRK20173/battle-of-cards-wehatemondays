@@ -8,7 +8,7 @@ public class Pile {
 
     private List<Card> cards;
 
-    public Pile(String pileOwner) {
+    public Pile() {
         cards = new ArrayList<Card>();
     }
 
