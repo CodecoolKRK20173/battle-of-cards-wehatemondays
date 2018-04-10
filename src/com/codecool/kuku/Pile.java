@@ -12,26 +12,11 @@ public class Pile {
         cards = new ArrayList<Card>();
     }
 
-    public void createDeckInPile() {
-        for (SuitEnum suit : SuitEnum.values()) {
-            for (RankEnum rank : RankEnum.values()) {
-                cards.add(new Card(suit, rank));
-            }
-        }
-        Collections.shuffle(cards);
-    }
 
     public void passCard(Card card, Pile destPile) {
         cards.remove(card);
         destPile.add(card);
-        // dest pile, card
-        // reimplement equals to remove card: 
-    // public boolean equals(Card card) {
-    //     if (card.getRank() == this.rank() && card.getSuit() == this.suit()){
-    //         return true;
-    //     }
-    //     return false;
-    // }
+
     }
 
     public void addCard(Card card) {
@@ -50,10 +35,12 @@ public class Pile {
         return cards.get(index);
     }
 
-    public void toString() {
+    public String toString() {
+        StringBuilder pileAsString = new StringBuilder();
         for (Card card : cards) {
-            System.out.println(card);
+            pileAsString.append(card);
         }
+        return pileAsString.toString();
     }
 }
 
