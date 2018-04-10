@@ -18,8 +18,8 @@ public class KukuFrame extends JFrame{
     private CardComponent[] playerCardComponent;
     private CardsImages cardsImages;
     private Map<String, BufferedImage> cards;
-    private JPanel cardsPanel;
-    private JLabel background;
+    private JPanel cardsPanel, leftComputersPanel, rightComputersPanel;
+    private JLabel background, computersLabel;
 
 
     public KukuFrame() {
@@ -33,6 +33,24 @@ public class KukuFrame extends JFrame{
 
         showMenuCards();
 
+        addComputersAreas();
+
+    }
+
+    private void addComputersAreas() {
+        leftComputersPanel = new JPanel(new GridLayout(5, 1));
+        rightComputersPanel = new JPanel(new GridLayout(5, 1));
+        leftComputersPanel = generateMenuComputers(leftComputersPanel);
+        rightComputersPanel = generateMenuComputers(rightComputersPanel);
+        background.add(leftComputersPanel, BorderLayout.EAST);
+        background.add(rightComputersPanel, BorderLayout.WEST);
+    }
+
+    private JPanel generateMenuComputers(JPanel computersPanel) {
+        computersLabel = new JLabel("Computers");
+        computersPanel.add(computersLabel);
+        computersPanel.setBackground(new Color(0, 0, 0, 0));
+        return computersPanel;
     }
 
     private void showMenuCards() {
