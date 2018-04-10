@@ -58,11 +58,10 @@ public class KukuFrame extends JFrame{
 
         cardsPanel = new JPanel();
         cardsPanel.setBackground(new Color(0, 0, 0, 0));
-        cardsPanel.setLayout(new GridLayout(1, 4));
         background.add(cardsPanel, BorderLayout.SOUTH);
 
         for (int i = 0; i < playerCardComponent.length; i++) {
-            playerCardComponent[i] = new CardComponent(cards.get("card_back"));
+            playerCardComponent[i] = new CardComponent(cards.get("empty_pile"));
             cardsPanel.add(playerCardComponent[i]);
         }
 
