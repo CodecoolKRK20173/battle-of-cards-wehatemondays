@@ -1,12 +1,16 @@
 package com.codecool.kuku;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
+
 public class Card {
 
     private int rank;
     private int suit;
     private Pile containingPile;
 
-    public Card(SuitEnum suit, CardEnum rank) {
+    public Card(SuitEnum suit, RankEnum rank) {
         this.suit = suit.getSuit();
         this.rank = rank.getRank();
     }

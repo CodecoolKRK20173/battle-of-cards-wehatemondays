@@ -9,26 +9,22 @@ public class Pile {
     private List<Card> cards;
 
     public Pile() {
-        cards = new ArrayList<Card>();
+        this.cards = new ArrayList<>();
     }
 
 
-    public void passCard(Card card, Pile destPile) {
-        cards.remove(card);
-        destPile.add(card);
+    // public void passCard(Card card, Pile destPile) {
+    //     cards.remove(card);
+    //     destPile.add(card);
 
-    }
+    // }
 
     public void addCard(Card card) {
         cards.add(card);
     }
 
-    public String getPileOwner() {
-        return pileOwner;
-    }
-
-    public ArrayList<Card> getCards() {
-        return ArrayList<Card> cards;
+    public List<Card> getCards() {
+        return this.cards;
     }
 
     public Card getCard(int index) {
