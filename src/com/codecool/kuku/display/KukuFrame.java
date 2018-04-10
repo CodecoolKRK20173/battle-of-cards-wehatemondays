@@ -46,7 +46,6 @@ public class KukuFrame extends JFrame{
         for (int i = 0; i < playerCardComponent.length; i++) {
             playerCardComponent[i] = new CardComponent(cards.get("clubs1"));
             cardsPanel.add(playerCardComponent[i]);
-            playerCardComponent[i].addMouseListener(new MouseAdapter(this));
         }
 
         playerCardComponent[0].addMouseListener(new MouseAdapter() {
