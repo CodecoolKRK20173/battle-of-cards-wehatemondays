@@ -45,6 +45,24 @@ public class Card {
         return card1.getSuit() == card2.getSuit();
     }
 
+    public static boolean isSameSuit(Card card1, Card card2, Card card3) {
+        if (card1.getSuit() == card2.getSuit()) {
+            if (card1.getSuit() == card3.getSuit()) return true;
+        }
+        return false;
+    }
+
+    public static boolean isSameRank(Card card1, Card card2) {
+        return card1.getRank() == card2.getRank();
+    }
+
+    public static boolean isSameRank(Card card1, Card card2, Card card3) {
+        if (card1.getRank() == card2.getRank()) {
+            if (card1.getRank() == card3.getRank()) return true;
+        }
+        return false;
+    }
+
     public static boolean equals(Card card1, Card card2) {
         if (card1.getSuit() == card2.getSuit() && card1.getRank() == card2.getRank()) return true;
         else return false;
