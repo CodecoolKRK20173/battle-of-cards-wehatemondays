@@ -1,16 +1,13 @@
 package com.codecool.kuku;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is a abstract class representing players.
  */
 public abstract class Player{
 
-
-    public Player(){
-        Pile playersPile = new Pile();
-    }
     /**
      * check cards for possible kuku.
      * @return true if kuku
@@ -21,13 +18,15 @@ public abstract class Player{
      * Calculates best move.
      * @return card to give
      */
-    public abstract card handleNextMove();
+    public abstract Card handleNextMove();
 
     /**
      * Add  cards to list.
      * @return list of used cards
      */
-    public abstract ArrayList handleCardsOnHand();
+    public abstract List handleCardsOnHand();
 
-    public abstract HashMap possiblessOpponentsKuku();
+    public abstract Map possiblessOpponentsKuku();
+
+    public abstract Pile getPile();
 }

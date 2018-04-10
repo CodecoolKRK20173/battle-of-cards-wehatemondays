@@ -1,5 +1,12 @@
+src/com/codecool/kuku/Player.java
 src/com/codecool/kuku/Game.java
 src/com/codecool/kuku/Card.java
+src/com/codecool/kuku/display/CardComponent.java
+src/com/codecool/kuku/display/CardsImages.java
+src/com/codecool/kuku/display/KukuFrame.java
+src/com/codecool/kuku/Human.java
 src/com/codecool/kuku/Pile.java
 src/com/codecool/kuku/RankEnum.java
 src/com/codecool/kuku/SuitEnum.java
+src/com/codecool/kuku/Ai.java
+src/com/codecool/kuku/Main.java

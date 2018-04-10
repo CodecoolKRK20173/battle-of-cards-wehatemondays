@@ -17,7 +17,7 @@ public enum RankEnum {
 
     private final int rank;
 
-    CardEnum(int rank) {
+    RankEnum(int rank) {
         this.rank = rank;
     }
 
