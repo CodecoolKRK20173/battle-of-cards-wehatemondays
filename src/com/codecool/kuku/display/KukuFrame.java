@@ -30,6 +30,52 @@ public class KukuFrame extends JFrame{
     	background = new JLabel(new ImageIcon("resources/table_images/table_default.png"));
     	add(background);
     	background.setLayout(new BorderLayout());
+
+        showMenuCards();
+
+    }
+
+    private void showMenuCards() {
+        playerCardComponent = new CardComponent[4];
+
+        cardsPanel = new JPanel();
+        cardsPanel.setBackground(new Color(0, 0, 0, 0));
+        cardsPanel.setLayout(new GridLayout(1, 4));
+        background.add(cardsPanel, BorderLayout.SOUTH);
+
+        for (int i = 0; i < playerCardComponent.length; i++) {
+            playerCardComponent[i] = new CardComponent(cards.get("clubs1"));
+            cardsPanel.add(playerCardComponent[i]);
+            playerCardComponent[i].addMouseListener(new MouseAdapter(this));
+        }
+
+        playerCardComponent[0].addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+        });
+
+        playerCardComponent[1].addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+        });
+
+        playerCardComponent[2].addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+        });
+
+        playerCardComponent[3].addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+        });
     }
 
     public Dimension getPrefferedSize() {
