@@ -1,3 +1,5 @@
+package com.codecool.kuku;
+
 public enum RankEnum {
     KING(13),
     QUEEN(12),

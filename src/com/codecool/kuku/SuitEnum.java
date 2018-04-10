@@ -1,3 +1,5 @@
+package com.codecool.kuku;
+
 public enum SuitEnum {
     HEARTS(1),
     DIAMONDS(2),
