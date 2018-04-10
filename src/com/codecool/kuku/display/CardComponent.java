@@ -14,18 +14,21 @@ import java.awt.image.BufferedImage;
 public class CardComponent extends JPanel{
 
     private BufferedImage cardImage;
+    private double scaleCard;
 
 	public CardComponent(BufferedImage cardImage) {
 		super();
         this.cardImage = cardImage;
+        scaleCard = 0.8;
 
-		Dimension dimension = new Dimension(cardImage.getWidth(), cardImage.getHeight());
+		Dimension dimension = new Dimension((int)(cardImage.getWidth() * scaleCard), (int)(cardImage.getHeight() * scaleCard));
 		setPreferredSize(dimension);
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
+        g2d.scale(scaleCard, scaleCard);
 		g2d.drawImage(cardImage, 0, 0, this);
 	}
 
@@ -33,5 +36,9 @@ public class CardComponent extends JPanel{
     public void changeCard(BufferedImage cardImage) {
         this.cardImage = cardImage;
         repaint();
+    }
+
+    public void setScaleCard(double scaleCard) {
+        this.scaleCard = scaleCard;
     }
 }
