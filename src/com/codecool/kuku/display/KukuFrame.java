@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.awt.image.BufferedImage;
 
 
-public class KukuFrame extends JFrame{
+public class KukuFrame extends JFrame implements MouseListener {
 
     private static final int DEFAULT_WIDTH = 1000;
     private static final int DEFAULT_HEIGHT = 700;
@@ -33,6 +33,7 @@ public class KukuFrame extends JFrame{
     	background = new JLabel(new ImageIcon("resources/table_images/table_default.png"));
     	add(background);
     	background.setLayout(new BorderLayout());
+        background.addMouseListener(this);
 
         showMenuCards();
 
@@ -62,39 +63,45 @@ public class KukuFrame extends JFrame{
 
         for (int i = 0; i < playerCardComponent.length; i++) {
             playerCardComponent[i] = new CardComponent(cards.get("empty_pile"));
+            playerCardComponent[i].addMouseListener(this);
             cardsPanel.add(playerCardComponent[i]);
         }
-
-        playerCardComponent[0].addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-        });
-
-        playerCardComponent[1].addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-        });
-
-        playerCardComponent[2].addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-        });
-
-        playerCardComponent[3].addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-        });
     }
 
     public Dimension getPrefferedSize() {
         return new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        Object source = e.getSource();
+        if (source.getClass() == CardComponent.class){
+            CardComponent card= (CardComponent)source;
+            card.changeCard(cards.get("clubs1"));
+        }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        Object source = e.getSource();
+        if (source.getClass() == CardComponent.class) {
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        } else {
+            setCursor(Cursor.getDefaultCursor());
+        }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
     }
 }
