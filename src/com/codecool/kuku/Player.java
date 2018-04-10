@@ -6,6 +6,11 @@ import java.util.ArrayList;
  * This is a abstract class representing players.
  */
 public abstract class Player{
+
+
+    public Player(){
+        Pile playersPile = new Pile();
+    }
     /**
      * check cards for possible kuku.
      * @return true if kuku
