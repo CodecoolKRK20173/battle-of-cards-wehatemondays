@@ -62,7 +62,7 @@ public class KukuFrame extends JFrame{
         background.add(cardsPanel, BorderLayout.SOUTH);
 
         for (int i = 0; i < playerCardComponent.length; i++) {
-            playerCardComponent[i] = new CardComponent(cards.get("clubs1"));
+            playerCardComponent[i] = new CardComponent(cards.get("card_back"));
             cardsPanel.add(playerCardComponent[i]);
         }
 
