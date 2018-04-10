@@ -1,8 +1,11 @@
 package com.codecool.kuku;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.codecool.klondike.Card;
 
 public class Game {
 
@@ -28,6 +31,22 @@ public class Game {
         playerList.add(player5);
         Player player6 = new Player();
         playerList.add(player6);
+
+    }
+
+    public void dealCards(int playersAmmount) {
+        playerList.shuffle();
+        Iterator<Card> deckIterator = deck.iterator();
+        for (int i = 0; i < playersAmmount ; i++ ){
+            for (int j = 0; j < 2; j++ ) {
+                Card card = deckIterator.next();
+                Player player = playerList.get(i);
+                player.getPile().addCard(card);
+                deck.remove(card);
+            }
+        }
+        Card lastCard = deckIterator.next();
+        playerList.get(0).getPile().addCard(lastCard);
 
     }
 
