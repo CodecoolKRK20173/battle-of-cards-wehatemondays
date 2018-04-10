@@ -14,12 +14,15 @@ public class KukuFrame extends JFrame{
     private static final int DEFAULT_WIDTH = 1000;
     private static final int DEFAULT_HEIGHT = 700;
 
+    private int numberOfComputers = 4;
+
     private JButton button;
     private CardComponent[] playerCardComponent;
     private CardsImages cardsImages;
     private Map<String, BufferedImage> cards;
-    private JPanel cardsPanel, leftComputersPanel, rightComputersPanel;
-    private JLabel background, computersLabel;
+    private JPanel cardsPanel, computersPanel;
+    private JLabel background;
+    private JLabel[] computersLabel;
 
 
     public KukuFrame() {
@@ -38,19 +41,16 @@ public class KukuFrame extends JFrame{
     }
 
     private void addComputersAreas() {
-        leftComputersPanel = new JPanel(new GridLayout(5, 1));
-        rightComputersPanel = new JPanel(new GridLayout(5, 1));
-        leftComputersPanel = generateMenuComputers(leftComputersPanel);
-        rightComputersPanel = generateMenuComputers(rightComputersPanel);
-        background.add(leftComputersPanel, BorderLayout.EAST);
-        background.add(rightComputersPanel, BorderLayout.WEST);
-    }
-
-    private JPanel generateMenuComputers(JPanel computersPanel) {
-        computersLabel = new JLabel("Computers");
-        computersPanel.add(computersLabel);
+        computersPanel = new JPanel(new GridLayout(1, 8));
+        background.add(computersPanel, BorderLayout.NORTH);
+        computersLabel = new JLabel[numberOfComputers];
+        for (int i = 0; i < numberOfComputers; i++) {
+            computersLabel[i] = new JLabel("Computer " + (i + 1) + " ");
+            computersLabel[i].setHorizontalAlignment(JLabel.RIGHT);
+            computersPanel.add(computersLabel[i]);
+            computersPanel.add(new CardComponent(cards.get("card_back")));
+        }
         computersPanel.setBackground(new Color(0, 0, 0, 0));
-        return computersPanel;
     }
 
     private void showMenuCards() {
