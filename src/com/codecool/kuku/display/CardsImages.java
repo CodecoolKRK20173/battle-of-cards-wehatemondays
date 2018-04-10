@@ -37,6 +37,9 @@ public class CardsImages {
                 imageFile = new File(IMAGE_PATH + nameTheme + "card_back.png");
                 BufferedImage cardImage = ImageIO.read(imageFile);
                 cardsImage.put("card_back", cardImage);
+                imageFile = new File(IMAGE_PATH + nameTheme + "empty_pile.png");
+                cardImage = ImageIO.read(imageFile);
+                cardsImage.put("empty_pile", cardImage);
             }
         } catch (IOException e) {
             e.printStackTrace();
