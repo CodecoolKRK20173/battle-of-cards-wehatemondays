@@ -6,16 +6,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.codecool.klondike.Card;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion.Static;
 
 public class Game {
 
-    List<Card> deck = new ArrayList<>();
+    List<Card> deck;
+    List<Player> players;
 
-    Game() {
-
+    Game(int playersAmmount) {
+        deck = new ArrayList<Card>();
+        players = initPiles();
+        dealCards(playersAmmount);
     }
 
-    public void initPiles() {
+    public LinkedList<Player> initPiles() {
 
         Pile stock = new Pile();
         List<Player> playerList = new LinkedList<>();
@@ -32,6 +36,8 @@ public class Game {
         Player player6 = new Player();
         playerList.add(player6);
 
+        return playerList;
+
     }
 
     public void dealCards(int playersAmmount) {
@@ -47,6 +53,8 @@ public class Game {
         }
         Card lastCard = deckIterator.next();
         playerList.get(0).getPile().addCard(lastCard);
+        deck.remove(lastCard);
+
 
     }
 
