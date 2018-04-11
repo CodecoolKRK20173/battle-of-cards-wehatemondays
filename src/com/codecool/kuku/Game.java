@@ -26,7 +26,7 @@ public class Game {
         removeFromPlayersList(); //if player has kuku TODO
 
         for (int i = 0; i < players.size(); i++) {
-
+            
             Player currentPlayer = players.get(i);
             gameLog.append(currentPlayer.getPlayerName() + "'s turn:\n'");
 
@@ -91,10 +91,18 @@ public class Game {
         });
     }
 
-    // public void setHumanKuku() {
-    //     //user has kuku (from GUI)
-    //     // check it!!
-    // };
+    public void setHumanKuku() {
+    // public boolean canHumanKuku(Human human){
+    //     return human.checkKuku();
+    // }
+    
+    // More likely like thizzz, but I'm not sure if catch this right. 
+    // if not I'll sort that one out tomo
+
+        //user has kuku (from GUI)
+        // check it!!
+
+    };
 
     // public ifPlayerGuess() {
     //     //if player guess right suit or rank
