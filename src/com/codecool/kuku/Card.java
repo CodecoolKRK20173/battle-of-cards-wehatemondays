@@ -8,11 +8,15 @@ public class Card {
 
     private int rank;
     private int suit;
+    private RankEnum enumRank;
+    private SuitEnum enumSuit;
     private Pile containingPile;
 
     public Card(SuitEnum suit, RankEnum rank) {
         this.suit = suit.getSuit();
         this.rank = rank.getRank();
+        enumSuit = suit;
+        enumRank = rank;
     }
 
     public int getSuit() {
@@ -22,14 +26,22 @@ public class Card {
     public int getRank() {
         return rank;
     }
-    
+
+    public SuitEnum getEnumSuit() {
+        return enumSuit;
+    }
+
+    public RankEnum getEnumRank() {
+        return enumRank;
+    }
+
     public Pile getContainingPile() {
         return containingPile;
     }
 
     // public void moveToPile(Pile destPile) {
-        
-        
+
+
 
     //     this.getContainingPile().getPile().remove(this);
     //     destPile.addCard(this);
