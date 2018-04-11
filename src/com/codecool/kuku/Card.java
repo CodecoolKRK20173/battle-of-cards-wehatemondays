@@ -27,10 +27,13 @@ public class Card {
         return containingPile;
     }
 
-    public void moveToPile(Pile destPile) {
-        this.getContainingPile().getCards().remove(this);
-        destPile.addCard(this);
-    }
+    // public void moveToPile(Pile destPile) {
+        
+        
+
+    //     this.getContainingPile().getPile().remove(this);
+    //     destPile.addCard(this);
+    // }
 
     private boolean isRed() {
         if (getSuit()==1 || getSuit()==2) {
@@ -81,5 +84,11 @@ public class Card {
         }
         Collections.shuffle(result);
         return result;
+    }
+
+    public String toString() {
+        StringBuilder newString = new StringBuilder();
+        newString.append("rank : " + String.valueOf(rank) + " suit : " + String.valueOf(suit));
+        return newString.toString();
     }
 }

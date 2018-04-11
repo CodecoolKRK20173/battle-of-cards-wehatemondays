@@ -9,7 +9,7 @@ public class Pile {
     private List<Card> cards;
 
     public Pile() {
-        this.cards = new ArrayList<>();
+        this.cards = new ArrayList<Card>();
     }
 
 
@@ -23,18 +23,26 @@ public class Pile {
         cards.add(card);
     }
 
-    public List<Card> getCards() {
+    public List<Card> getPile() {
         return this.cards;
+    }
+
+    public void removeFromPile(Card card) {
+        cards.remove(card);
     }
 
     public Card getCard(int index) {
         return cards.get(index);
     }
 
+    public int getPileSize() {
+        return cards.size();
+    }
+
     public String toString() {
         StringBuilder pileAsString = new StringBuilder();
         for (Card card : cards) {
-            pileAsString.append(card);
+            pileAsString.append(card + " | ");
         }
         return pileAsString.toString();
     }
