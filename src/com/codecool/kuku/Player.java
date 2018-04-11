@@ -29,4 +29,9 @@ public abstract class Player{
     public abstract Map possiblessOpponentsKuku();
 
     public abstract Pile getPile();
+
+    public abstract String getPlayerName();
+
+    //// TEMP TESTING PURPOSE
+    public abstract Card chooseCard();
 }
