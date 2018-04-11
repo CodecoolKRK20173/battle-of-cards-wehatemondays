@@ -21,20 +21,25 @@ public class Game {
         dealCards();
     }
 
-    public void handleRound() {
+    public void handleRound(Card cardHuman) {
 
+        removeFromPlayersList(); //if player has kuku TODO
+        
         for (int i = 0; i < players.size(); i++) {
 
             Player currentPlayer = players.get(i);
-
+            
+            if (currentPlayer.checkKuku()) playersWithKuku.add(currentPlayer);
             // /// adding to kuku list
             // playersWithKuku.add(currentPlayer);
             // /// checking kuku mechanics
-            // if (playersWithKuku.contains(currentPlayer)) {
-            //     continue;
-            // }
-
-            Card cardToPass = currentPlayer.chooseCard();
+            if (currentPlayer instanceof Human) {
+                Card cardToPass = cardHuman;
+            }
+            else {
+                Card cardToPass = currentPlayer.chooseCard();
+            }
+            //TODO String list with info
             System.out.println("Turn: " + currentPlayer.getPlayerName());
             System.out.println("Start cards:  " + String.valueOf(currentPlayer.getPile().getPileSize()));
             
@@ -63,8 +68,8 @@ public class Game {
         
     }
 
-    private boolean isRoundDone() {
-        if (players.size() == playersWithKuku.size() - 1) {
+     private boolean isRoundDone() {
+        if (players.size() == 1) {
             return true;
         }
         return false;
@@ -93,6 +98,14 @@ public class Game {
         deckIterator.forEachRemaining(card -> {
             stock.addCard(card);
         });
+    }
+
+    public void setHumanKuku() {
+        //user has kuku (from GUI)
+    };
+
+    public ifPlayerGuess() {
+        //if player guess right suit or rank
     }
 
 }
