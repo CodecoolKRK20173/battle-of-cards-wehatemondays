@@ -18,8 +18,9 @@ public class Human extends Player{
     private Map<String, Integer> checkColors() {
         HashMap<String, Integer> colors = new HashMap<>();
 
-        for (Card card : playersPile) {
-            String color = card.getSuit();
+        for (int i = 0; i < playersPile.getPileSize(); i ++) {
+            Card card = playersPile.getCard(i);
+            String color = String.valueOf(card.getSuit());
             Integer previousValue = colors.get(color);
 
             if(previousValue == null){
@@ -33,8 +34,9 @@ public class Human extends Player{
     private Map<String, Integer> checkRanks() {
         HashMap<String, Integer> ranks = new HashMap<>();
 
-        for (Card card : playersPile) {
-            String rank = card.getRank();
+        for (int i = 0; i < playersPile.getPileSize(); i ++) {
+            Card card = playersPile.getCard(i);
+            String rank = String.valueOf(card.getRank());
             Integer previousValue = ranks.get(rank);
 
             if(previousValue == null){
