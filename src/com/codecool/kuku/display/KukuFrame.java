@@ -22,6 +22,7 @@ public class KukuFrame extends JFrame implements MouseListener {
     private JMenu menuGame;
     private JMenuItem menuItemNewGame, menuItemExit;
     private int indexHumanPlayer;
+    private Pile humanPile;
 
     private JButton button;
     private CardComponent[] playerCardComponent;
@@ -83,6 +84,8 @@ public class KukuFrame extends JFrame implements MouseListener {
                             System.out.println("human" + indexHumanPlayer);
                         }
                     }
+
+                    humanPile = players.get(indexHumanPlayer).getPile();
 
                     if (players.get(0) instanceof Ai) {
                         game.handleRound(null);
