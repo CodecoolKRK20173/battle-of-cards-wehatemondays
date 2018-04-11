@@ -23,13 +23,8 @@ public class Game {
 
     public void handleRound(Card cardHuman) {
 
-<<<<<<< HEAD
-        removeFromPlayersList();
-        
-=======
         removeFromPlayersList(); //if player has kuku TODO
 
->>>>>>> b6ac4f776fcfd5f73e6addc21c364918ddfbf7e5
         for (int i = 0; i < players.size(); i++) {
 
             Player currentPlayer = players.get(i);
