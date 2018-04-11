@@ -30,6 +30,21 @@ public class Human extends Player{
         return colors;
     }
 
+    private Map<String, Integer> checkRanks() {
+        HashMap<String, Integer> ranks = new HashMap<>();
+
+        for (Card card : playersPile) {
+            String rank = card.getRank();
+            Integer previousValue = ranks.get(rank);
+
+            if(previousValue == null){
+                previousValue = 0;
+            }
+            ranks.put(rank, previousValue + 1);
+        }
+        return ranks;
+    }
+
     public boolean checkKuku(){
         System.out.println("Not implemented yet");
         return false;
