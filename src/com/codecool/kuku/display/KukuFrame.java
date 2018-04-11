@@ -14,7 +14,7 @@ public class KukuFrame extends JFrame implements MouseListener {
     private static final int DEFAULT_WIDTH = 1000;
     private static final int DEFAULT_HEIGHT = 700;
 
-    private int numberOfComputers = 4;
+    private int numberOfComputers;
 
     private JMenuBar menuBar;
     private JMenu menuGame;
@@ -42,7 +42,7 @@ public class KukuFrame extends JFrame implements MouseListener {
 
         showMenuCards();
 
-        addComputersPanels();
+        // addComputersPanels();
 
         addMenuBar();
 
@@ -60,7 +60,20 @@ public class KukuFrame extends JFrame implements MouseListener {
 
         menuItemNewGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
+                Object[] possibilities = {1, 2, 3, 4};
+                numberOfComputers = (int)JOptionPane.showInputDialog(
+                    null,
+                    "Complete the sentence:\n"
+                    + "\"Green eggs and...\"",
+                    "Customized Dialog",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    possibilities,
+                    1);
+                    addComputersPanels();
+                    pack();
+                    setSize(getPrefferedSize());
+
             }
         });
 
