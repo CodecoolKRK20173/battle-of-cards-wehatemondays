@@ -1,11 +1,13 @@
 package com.codecool.kuku.display;
 
-
+import com.codecool.kuku.*;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 
 
@@ -28,6 +30,8 @@ public class KukuFrame extends JFrame implements MouseListener {
     private JPanel cardsPanel, computersPanel;
     private JLabel background;
     private JLabel[] computersLabel;
+    private Game game;
+    private List<Player> players;
 
 
     public KukuFrame() {
@@ -69,6 +73,11 @@ public class KukuFrame extends JFrame implements MouseListener {
                     null,
                     possibilities,
                     1);
+                    game = new Game(numberOfComputers + 1);
+                    players = game.getPlayers();
+                    if (players.get(0) instanceof Ai) {
+                        game.handleRound(null);
+                    }
                     addComputersPanels();
                     pack();
                     setSize(getPrefferedSize());
