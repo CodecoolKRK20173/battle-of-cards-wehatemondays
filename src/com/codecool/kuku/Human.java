@@ -15,8 +15,47 @@ public class Human extends Player{
         this.name = name;
     }
 
+    private Map<String, Integer> checkColors() {
+        HashMap<String, Integer> colors = new HashMap<>();
+
+        for (int i = 0; i < playersPile.getPileSize(); i ++) {
+            Card card = playersPile.getCard(i);
+            String color = String.valueOf(card.getSuit());
+            Integer previousValue = colors.get(color);
+
+            if(previousValue == null){
+                previousValue = 0;
+            }
+            colors.put(color, previousValue + 1);
+        }
+        return colors;
+    }
+
+    private Map<String, Integer> checkRanks() {
+        HashMap<String, Integer> ranks = new HashMap<>();
+
+        for (int i = 0; i < playersPile.getPileSize(); i ++) {
+            Card card = playersPile.getCard(i);
+            String rank = String.valueOf(card.getRank());
+            Integer previousValue = ranks.get(rank);
+
+            if(previousValue == null){
+                previousValue = 0;
+            }
+            ranks.put(rank, previousValue + 1);
+        }
+        return ranks;
+    }
+
     public boolean checkKuku(){
-        System.out.println("Not implemented yet");
+        Map<String, Integer> colors = checkColors();
+        List<Integer> noOfCardsInColor = new ArrayList(colors.values());
+        Map<String, Integer> ranks = checkRanks();
+        List<Integer> noOfCardsInRank = new ArrayList(ranks.values());
+        
+        if (noOfCardsInColor.contains(3) || noOfCardsInRank.contains(3)) {
+            return true;
+            }    
         return false;
     }
 
