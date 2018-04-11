@@ -22,51 +22,41 @@ public class Game {
     }
 
     public void handleRound(Card cardHuman) {
-
+        StringBuilder gameLog = new StringBuilder();
         removeFromPlayersList(); //if player has kuku TODO
 
         for (int i = 0; i < players.size(); i++) {
-
+            
             Player currentPlayer = players.get(i);
+            gameLog.append(currentPlayer.getPlayerName() + "'s turn:\n'");
 
             if (currentPlayer.checkKuku()) playersWithKuku.add(currentPlayer);
             // /// adding to kuku list
+            //gameLog.append(currentPlayer.getPlayerName() + " have reported Kuku!\n");
             // playersWithKuku.add(currentPlayer);
             // /// checking kuku mechanics
-            Card cardToPass;
+            Card cardToPass; //////// ->>>> what card?
             if (currentPlayer instanceof Human) {
                 cardToPass = cardHuman;
+                gameLog.append("You have passed " + cardToPass.toString() + " to ");
             }
             else {
                 cardToPass = currentPlayer.chooseCard();
+                gameLog.append(players.get(i).getPlayerName() + " passed card to ");
             }
-            //TODO String list with info
-            System.out.println("Turn: " + currentPlayer.getPlayerName());
-            System.out.println("Start cards:  " + String.valueOf(currentPlayer.getPile().getPileSize()));
 
             if (i + 1 < players.size()) {
                 players.get(i+1).getPile().addCard(cardToPass);
                 players.get(i).getPile().removeFromPile(cardToPass);
-                System.out.println("moving card: " + cardToPass);
+                gameLog.append(players.get(i+1).getPlayerName() + ". \n\n");
             }
             else {
                 players.get(0).getPile().addCard(cardToPass);
                 players.get(i).getPile().removeFromPile(cardToPass);
-                System.out.println("moving card: " + cardToPass);
+                gameLog.append(players.get(0).getPlayerName() + ". \n\n");
             }
-
-            System.out.println("Final cards:  " + String.valueOf(currentPlayer.getPile().getPileSize()) + "\n");
-            System.out.println("End player: ");
-            ////// Wordks fine //////
-            // System.out.println(player.getPlayerName());
-            // Pile playersCards = player.getPile();
-            // System.out.println("Players cards: ");
-            // for (int i = 0; i < playersCards.getPileSize(); i++) {
-            //     System.out.println(playersCards.getCard(i));
-            // }
-            // System.out.println("end player: ");
         }
-
+        String turnLog = gameLog.toString();
     }
 
      private boolean isRoundDone() {
