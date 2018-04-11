@@ -25,6 +25,15 @@ public class CardComponent extends JPanel{
 		setPreferredSize(dimension);
 	}
 
+    public CardComponent(BufferedImage cardImage, double scaleCard) {
+		super();
+        this.cardImage = cardImage;
+        this.scaleCard = scaleCard;
+
+		Dimension dimension = new Dimension((int)(cardImage.getWidth() * scaleCard), (int)(cardImage.getHeight() * scaleCard));
+		setPreferredSize(dimension);
+	}
+
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;

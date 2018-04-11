@@ -9,15 +9,20 @@ import java.util.HashMap;
 import java.awt.image.BufferedImage;
 
 
-public class KukuFrame extends JFrame{
+public class KukuFrame extends JFrame implements MouseListener {
 
     private static final int DEFAULT_WIDTH = 1000;
     private static final int DEFAULT_HEIGHT = 700;
 
-    private int numberOfComputers = 4;
+    private int numberOfComputers;
+
+    private JMenuBar menuBar;
+    private JMenu menuGame;
+    private JMenuItem menuItemNewGame, menuItemExit;
 
     private JButton button;
     private CardComponent[] playerCardComponent;
+    private CardComponent[][] computerCardComponent;
     private CardsImages cardsImages;
     private Map<String, BufferedImage> cards;
     private JPanel cardsPanel, computersPanel;
@@ -33,24 +38,80 @@ public class KukuFrame extends JFrame{
     	background = new JLabel(new ImageIcon("resources/table_images/table_default.png"));
     	add(background);
     	background.setLayout(new BorderLayout());
+        background.addMouseListener(this);
 
         showMenuCards();
 
-        addComputersAreas();
+        // addComputersPanels();
+
+        addMenuBar();
 
     }
 
-    private void addComputersAreas() {
-        computersPanel = new JPanel(new GridLayout(1, 8));
+    private void addMenuBar() {
+        menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+        menuGame = new JMenu("Game");
+        menuItemNewGame = new JMenuItem("New Game");
+        menuItemExit = new JMenuItem("Exit");
+        menuGame.add(menuItemNewGame);
+        menuGame.add(menuItemExit);
+        menuBar.add(menuGame);
+
+        menuItemNewGame.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Object[] possibilities = {1, 2, 3, 4};
+                numberOfComputers = (int)JOptionPane.showInputDialog(
+                    null,
+                    "Choose number of computers: ",
+                    "Customized Dialog",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    possibilities,
+                    1);
+                    addComputersPanels();
+                    pack();
+                    setSize(getPrefferedSize());
+
+            }
+        });
+
+        menuItemExit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+    }
+
+    private void addComputersPanels() {
+        computersPanel = new JPanel(new GridLayout(1, 4));
         background.add(computersPanel, BorderLayout.NORTH);
         computersLabel = new JLabel[numberOfComputers];
+        computerCardComponent = new CardComponent[numberOfComputers][3];
+        for (int i = 0; i < computerCardComponent.length; i++) {
+            for (int j = 0; j < computerCardComponent[i].length; j++) {
+                computerCardComponent[i][j] = new CardComponent(cards.get("card_back"), 0.5);
+            }
+        }
+
         for (int i = 0; i < numberOfComputers; i++) {
             computersLabel[i] = new JLabel("Computer " + (i + 1) + " ");
-            computersLabel[i].setHorizontalAlignment(JLabel.RIGHT);
-            computersPanel.add(computersLabel[i]);
-            computersPanel.add(new CardComponent(cards.get("card_back")));
+            computersPanel.add(getComputerCardPanel(computerCardComponent[i], i));
         }
-        computersPanel.setBackground(new Color(0, 0, 0, 0));
+    }
+
+    private JPanel getComputerCardPanel(CardComponent[] cardComponent, int numberOfComp) {
+        JPanel computerCardPanel = new JPanel();
+        JPanel pilesCardPanel = new JPanel();
+        computerCardPanel.setLayout(new BorderLayout());
+        computerCardPanel.add(computersLabel[numberOfComp], BorderLayout.NORTH);
+        for (CardComponent component : cardComponent) {
+            pilesCardPanel.add(component);
+            pilesCardPanel.setSize(10, 10);
+            component.addMouseListener(this);
+        }
+        computerCardPanel.add(pilesCardPanel, BorderLayout.SOUTH);
+        return computerCardPanel;
     }
 
     private void showMenuCards() {
@@ -58,44 +119,49 @@ public class KukuFrame extends JFrame{
 
         cardsPanel = new JPanel();
         cardsPanel.setBackground(new Color(0, 0, 0, 0));
-        cardsPanel.setLayout(new GridLayout(1, 4));
         background.add(cardsPanel, BorderLayout.SOUTH);
 
         for (int i = 0; i < playerCardComponent.length; i++) {
-            playerCardComponent[i] = new CardComponent(cards.get("card_back"));
+            playerCardComponent[i] = new CardComponent(cards.get("empty_pile"));
+            playerCardComponent[i].addMouseListener(this);
             cardsPanel.add(playerCardComponent[i]);
         }
-
-        playerCardComponent[0].addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-        });
-
-        playerCardComponent[1].addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-        });
-
-        playerCardComponent[2].addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-        });
-
-        playerCardComponent[3].addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-        });
     }
 
     public Dimension getPrefferedSize() {
         return new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        Object source = e.getSource();
+        if (source.getClass() == CardComponent.class){
+            CardComponent card= (CardComponent)source;
+            card.changeCard(cards.get("clubs1"));
+        }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        Object source = e.getSource();
+        if (source.getClass() == CardComponent.class) {
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        } else {
+            setCursor(Cursor.getDefaultCursor());
+        }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
     }
 }
