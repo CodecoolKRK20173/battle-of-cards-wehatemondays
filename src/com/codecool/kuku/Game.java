@@ -22,46 +22,45 @@ public class Game {
     }
 
     public void handleRound() {
-        while(!isRoundDone()){
+
+        for (int i = 0; i < players.size(); i++) {
+
+            Player currentPlayer = players.get(i);
+
+            // /// adding to kuku list
+            // playersWithKuku.add(currentPlayer);
+            // /// checking kuku mechanics
+            // if (playersWithKuku.contains(currentPlayer)) {
+            //     continue;
+            // }
+
+            Card cardToPass = currentPlayer.chooseCard();
+            System.out.println("Turn: " + currentPlayer.getPlayerName());
+            System.out.println("Start cards:  " + String.valueOf(currentPlayer.getPile().getPileSize()));
             
-            for (int i = 0; i < players.size(); i++) {
-
-                Player currentPlayer = players.get(i);
-
-                // /// adding to kuku list
-                // playersWithKuku.add(currentPlayer);
-                // /// checking kuku mechanics
-                // if (playersWithKuku.contains(currentPlayer)) {
-                //     continue;
-                // }
-
-                Card cardToPass = currentPlayer.chooseCard();
-                System.out.println("Turn: " + currentPlayer.getPlayerName());
-                System.out.println("Start cards:  " + String.valueOf(currentPlayer.getPile().getPileSize()));
-                
-                if (i + 1 < players.size()) {
-                    players.get(i+1).getPile().addCard(cardToPass);
-                    players.get(i).getPile().removeFromPile(cardToPass);
-                    System.out.println("moving card: " + cardToPass);
-                }
-                else {
-                    players.get(0).getPile().addCard(cardToPass);
-                    players.get(i).getPile().removeFromPile(cardToPass);
-                    System.out.println("moving card: " + cardToPass);
-                }
-                
-                System.out.println("Final cards:  " + String.valueOf(currentPlayer.getPile().getPileSize()) + "\n");
-                System.out.println("End player: ");
-                ////// Wordks fine //////
-                // System.out.println(player.getPlayerName());
-                // Pile playersCards = player.getPile();
-                // System.out.println("Players cards: ");
-                // for (int i = 0; i < playersCards.getPileSize(); i++) {
-                //     System.out.println(playersCards.getCard(i));
-                // }
-                // System.out.println("end player: ");
+            if (i + 1 < players.size()) {
+                players.get(i+1).getPile().addCard(cardToPass);
+                players.get(i).getPile().removeFromPile(cardToPass);
+                System.out.println("moving card: " + cardToPass);
             }
+            else {
+                players.get(0).getPile().addCard(cardToPass);
+                players.get(i).getPile().removeFromPile(cardToPass);
+                System.out.println("moving card: " + cardToPass);
+            }
+            
+            System.out.println("Final cards:  " + String.valueOf(currentPlayer.getPile().getPileSize()) + "\n");
+            System.out.println("End player: ");
+            ////// Wordks fine //////
+            // System.out.println(player.getPlayerName());
+            // Pile playersCards = player.getPile();
+            // System.out.println("Players cards: ");
+            // for (int i = 0; i < playersCards.getPileSize(); i++) {
+            //     System.out.println(playersCards.getCard(i));
+            // }
+            // System.out.println("end player: ");
         }
+        
     }
 
     private boolean isRoundDone() {
