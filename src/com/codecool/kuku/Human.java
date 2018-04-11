@@ -15,6 +15,21 @@ public class Human extends Player{
         this.name = name;
     }
 
+    private Map<String, Integer> checkColors() {
+        HashMap<String, Integer> colors = new HashMap<>();
+
+        for (Card card : playersPile) {
+            String color = card.getSuit();
+            Integer previousValue = colors.get(color);
+
+            if(previousValue == null){
+                previousValue = 0;
+            }
+            colors.put(color, previousValue + 1);
+        }
+        return colors;
+    }
+
     public boolean checkKuku(){
         System.out.println("Not implemented yet");
         return false;
