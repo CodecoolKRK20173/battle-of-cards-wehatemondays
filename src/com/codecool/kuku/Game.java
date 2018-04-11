@@ -8,12 +8,12 @@ import java.util.Collections;
 
 public class Game {
 
-    List<Card> deck;
-    List<Player> players;
-    List<Player> playersWithKuku;
-    Pile stock;
+    private List<Card> deck;
+    private List<Player> players;
+    private List<Player> playersWithKuku;
+    private Pile stock;
 
-    Game(int playersAmmount) {
+    public Game(int playersAmmount) {
         stock = new Pile();
         deck = Card.createDeckInPile();
         playersWithKuku = new ArrayList<>();
@@ -24,11 +24,11 @@ public class Game {
     public void handleRound(Card cardHuman) {
 
         removeFromPlayersList(); //if player has kuku TODO
-        
+
         for (int i = 0; i < players.size(); i++) {
 
             Player currentPlayer = players.get(i);
-            
+
             if (currentPlayer.checkKuku()) playersWithKuku.add(currentPlayer);
             // /// adding to kuku list
             // playersWithKuku.add(currentPlayer);
@@ -42,7 +42,7 @@ public class Game {
             //TODO String list with info
             System.out.println("Turn: " + currentPlayer.getPlayerName());
             System.out.println("Start cards:  " + String.valueOf(currentPlayer.getPile().getPileSize()));
-            
+
             if (i + 1 < players.size()) {
                 players.get(i+1).getPile().addCard(cardToPass);
                 players.get(i).getPile().removeFromPile(cardToPass);
@@ -53,7 +53,7 @@ public class Game {
                 players.get(i).getPile().removeFromPile(cardToPass);
                 System.out.println("moving card: " + cardToPass);
             }
-            
+
             System.out.println("Final cards:  " + String.valueOf(currentPlayer.getPile().getPileSize()) + "\n");
             System.out.println("End player: ");
             ////// Wordks fine //////
@@ -65,7 +65,7 @@ public class Game {
             // }
             // System.out.println("end player: ");
         }
-        
+
     }
 
      private boolean isRoundDone() {
