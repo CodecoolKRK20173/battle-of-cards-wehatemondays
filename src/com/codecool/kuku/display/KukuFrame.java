@@ -16,6 +16,10 @@ public class KukuFrame extends JFrame implements MouseListener {
 
     private int numberOfComputers = 4;
 
+    private JMenuBar menuBar;
+    private JMenu menuGame;
+    private JMenuItem menuItemNewGame, menuItemExit;
+
     private JButton button;
     private CardComponent[] playerCardComponent;
     private CardComponent[][] computerCardComponent;
@@ -40,6 +44,31 @@ public class KukuFrame extends JFrame implements MouseListener {
 
         addComputersPanels();
 
+        addMenuBar();
+
+    }
+
+    private void addMenuBar() {
+        menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+        menuGame = new JMenu("Game");
+        menuItemNewGame = new JMenuItem("New Game");
+        menuItemExit = new JMenuItem("Exit");
+        menuGame.add(menuItemNewGame);
+        menuGame.add(menuItemExit);
+        menuBar.add(menuGame);
+
+        menuItemNewGame.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+
+        menuItemExit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
     }
 
     private void addComputersPanels() {
