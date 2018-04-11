@@ -63,8 +63,7 @@ public class KukuFrame extends JFrame implements MouseListener {
                 Object[] possibilities = {1, 2, 3, 4};
                 numberOfComputers = (int)JOptionPane.showInputDialog(
                     null,
-                    "Complete the sentence:\n"
-                    + "\"Green eggs and...\"",
+                    "Choose number of computers: ",
                     "Customized Dialog",
                     JOptionPane.PLAIN_MESSAGE,
                     null,
