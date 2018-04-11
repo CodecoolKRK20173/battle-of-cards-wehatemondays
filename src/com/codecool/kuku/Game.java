@@ -104,8 +104,9 @@ public class Game {
         //user has kuku (from GUI)
     };
 
-    public ifPlayerGuess() {
+    public boolean ifPlayerGuess() {
         //if player guess right suit or rank
+        return true;
     }
 
 }
