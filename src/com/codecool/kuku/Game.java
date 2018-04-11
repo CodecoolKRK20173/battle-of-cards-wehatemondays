@@ -23,7 +23,7 @@ public class Game {
 
     public void handleRound(Card cardHuman) {
 
-        removeFromPlayersList(); //if player has kuku TODO
+        removeFromPlayersList();
         
         for (int i = 0; i < players.size(); i++) {
 
@@ -33,11 +33,12 @@ public class Game {
             // /// adding to kuku list
             // playersWithKuku.add(currentPlayer);
             // /// checking kuku mechanics
+            Card cardToPass;
             if (currentPlayer instanceof Human) {
-                Card cardToPass = cardHuman;
+                cardToPass = cardHuman;
             }
             else {
-                Card cardToPass = currentPlayer.chooseCard();
+                cardToPass = currentPlayer.chooseCard();
             }
             //TODO String list with info
             System.out.println("Turn: " + currentPlayer.getPlayerName());
@@ -100,12 +101,27 @@ public class Game {
         });
     }
 
-    public void setHumanKuku() {
-        //user has kuku (from GUI)
-    };
+    // public void setHumanKuku() {
+    //     //user has kuku (from GUI)
+    //     // check it!!
+    // };
 
-    public ifPlayerGuess() {
-        //if player guess right suit or rank
+    // public ifPlayerGuess() {
+    //     //if player guess right suit or rank
+    // }
+
+    public void removeFromPlayersList() {
+
+        if (!playersWithKuku.isEmpty()) {
+            for (int i = 0; i < playersWithKuku.size(); i++) {
+                Player playerWithKuku = playersWithKuku.get(i);
+
+                for (int x = 0; x < players.size(); x++) {
+                    if (players.get(x).equals(playerWithKuku)) {
+                        players.remove(x);
+                    }
+                }
+            }
+        }
     }
-
 }
