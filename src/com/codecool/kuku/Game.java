@@ -26,7 +26,7 @@ public class Game {
         removeFromPlayersList(); //if player has kuku TODO
 
         for (int i = 0; i < players.size(); i++) {
-            
+
             Player currentPlayer = players.get(i);
             gameLog.append(currentPlayer.getPlayerName() + "'s turn:\n'");
 
@@ -117,6 +117,10 @@ public class Game {
     public boolean ifPlayerGuess() {
         //if player guess right suit or rank
         return true;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
     }
 
 }
