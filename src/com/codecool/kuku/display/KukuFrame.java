@@ -18,6 +18,7 @@ public class KukuFrame extends JFrame implements MouseListener {
 
     private JButton button;
     private CardComponent[] playerCardComponent;
+    private CardComponent[][] computerCardComponent;
     private CardsImages cardsImages;
     private Map<String, BufferedImage> cards;
     private JPanel cardsPanel, computersPanel;
@@ -37,21 +38,39 @@ public class KukuFrame extends JFrame implements MouseListener {
 
         showMenuCards();
 
-        addComputersAreas();
+        addComputersPanels();
 
     }
 
-    private void addComputersAreas() {
-        computersPanel = new JPanel(new GridLayout(1, 8));
+    private void addComputersPanels() {
+        computersPanel = new JPanel(new GridLayout(1, 4));
         background.add(computersPanel, BorderLayout.NORTH);
         computersLabel = new JLabel[numberOfComputers];
+        computerCardComponent = new CardComponent[numberOfComputers][3];
+        for (int i = 0; i < computerCardComponent.length; i++) {
+            for (int j = 0; j < computerCardComponent[i].length; j++) {
+                computerCardComponent[i][j] = new CardComponent(cards.get("card_back"), 0.5);
+            }
+        }
+
         for (int i = 0; i < numberOfComputers; i++) {
             computersLabel[i] = new JLabel("Computer " + (i + 1) + " ");
-            computersLabel[i].setHorizontalAlignment(JLabel.RIGHT);
-            computersPanel.add(computersLabel[i]);
-            computersPanel.add(new CardComponent(cards.get("card_back")));
+            computersPanel.add(getComputerCardPanel(computerCardComponent[i], i));
         }
-        computersPanel.setBackground(new Color(0, 0, 0, 0));
+    }
+
+    private JPanel getComputerCardPanel(CardComponent[] cardComponent, int numberOfComp) {
+        JPanel computerCardPanel = new JPanel();
+        JPanel pilesCardPanel = new JPanel();
+        computerCardPanel.setLayout(new BorderLayout());
+        computerCardPanel.add(computersLabel[numberOfComp], BorderLayout.NORTH);
+        for (CardComponent component : cardComponent) {
+            pilesCardPanel.add(component);
+            pilesCardPanel.setSize(10, 10);
+            component.addMouseListener(this);
+        }
+        computerCardPanel.add(pilesCardPanel, BorderLayout.SOUTH);
+        return computerCardPanel;
     }
 
     private void showMenuCards() {
