@@ -48,7 +48,14 @@ public class Human extends Player{
     }
 
     public boolean checkKuku(){
-        System.out.println("Not implemented yet");
+        Map<String, Integer> colors = checkColors();
+        List<Integer> noOfCardsInColor = new ArrayList(colors.values());
+        Map<String, Integer> ranks = checkRanks();
+        List<Integer> noOfCardsInRank = new ArrayList(ranks.values());
+        
+        if (noOfCardsInColor.contains(3) || noOfCardsInRank.contains(3)) {
+            return true;
+            }    
         return false;
     }
 
