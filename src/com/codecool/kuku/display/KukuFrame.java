@@ -36,6 +36,7 @@ public class KukuFrame extends JFrame implements MouseListener {
     private Game game;
     private List<Player> players;
     private JButton handleMoveButton, reportKukuButton;
+    private boolean cardBackInPile = false;
 
 
     public KukuFrame() {
@@ -166,6 +167,7 @@ public class KukuFrame extends JFrame implements MouseListener {
                     game.handleRound(destCard);
                     refreshHumanCards();
                     showHumanCards();
+                    cardBackInPile = false;
                 }
             }
         });
@@ -225,10 +227,15 @@ public class KukuFrame extends JFrame implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         Object source = e.getSource();
+        if (cardBackInPile == true) {
+            showHumanCards();
+            cardBackInPile = false;
+        }
         for (int i = 0; i < playerCardComponent.length; i++) {
-            if (source == playerCardComponent[i]) {
+            if (source == playerCardComponent[i] && cardBackInPile == false) {
                 playerCardComponent[i].changeCard(cards.get("card_back"));
                 destCard = humanCards.get(i);
+                cardBackInPile = true;
 
             }
         }
