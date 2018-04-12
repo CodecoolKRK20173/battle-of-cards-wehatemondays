@@ -85,6 +85,7 @@ public class Game {
                 System.out.println("Adding one card to one player");
             }
         }
+        players.get(0).getPile().addCard(deckIterator.next());
         deckIterator.forEachRemaining(card -> {
             stock.addCard(card);
         });
