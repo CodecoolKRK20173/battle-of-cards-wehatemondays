@@ -24,7 +24,6 @@ public abstract class Player{
      * Add  cards to list.
      * @return list of used cards
      */
-    public abstract List handleCardsOnHand();
 
     public abstract Map possiblessOpponentsKuku();
 
