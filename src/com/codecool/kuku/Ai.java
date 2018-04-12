@@ -11,10 +11,14 @@ public class Ai extends Player{
 
     public Pile playersPile;
     public String name;
+    public HashMap<String, Card> movedCards;
+    public ArrayList<String> kukuList;
 
     public Ai(String name){
         this.playersPile = new Pile();
         this.name = name;
+        this.movedCards.put("playerOnLeft", null);
+        this.movedCards.put("playerOnRight", null);
     }
    
     public boolean checkKuku(){
@@ -33,27 +37,26 @@ public class Ai extends Player{
 
     public Card handleNextMove(){
         Random rndC = new Random();
-
+        int random;
         for (int i = 0; i < 3; i++) {
-            if(Card.isSameSuit(playersPile.getCard(0),playersPile.getCard(3)) ||
-        Card.isSameRank(playersPile.getCard(0),playersPile.getCard(3))){
+            if(Card.isSameSuit(playersPile.getCard(i),playersPile.getCard(i+1)) ||
+            Card.isSameRank(playersPile.getCard(i),playersPile.getCard(i+1))){
             int[] exclusion = {i, i + 1};
-            int random = getRandomWithExclusion(rndC,0,4,exclusion);
+            random = getRandomWithExclusion(rndC,0,4,exclusion);
+            movedCards.put("playerOnLeft", getCard(random));
             return playersPile.getCard(random);
         }
     }
-
         for(int i=0; i < 3; i++){
             if(Card.isSameSuit(playersPile.getCard(i),playersPile.getCard(i+1)) ||
             Card.isSameRank(playersPile.getCard(i),playersPile.getCard(i+1))){
-            Random nextRnd = new Random();
             int[] exclusion = {i, i + 1};
-            int random2 = getRandomWithExclusion(rndC,0,4,exclusion);
-            return playersPile.getCard(random2);
+            random = getRandomWithExclusion(rndC,0,4,exclusion);
+            movedCards.put("playerOnLeft", getCard(random));
+            return playersPile.getCard(random);
             }
         }
-        Random finalRnd = new Random();
-        return playersPile.getCard(finalRnd.nextInt(4));
+        return playersPile.getCard(rndC.nextInt(4));
     }
 
     private int getRandomWithExclusion(Random rnd, int start, int end, int... exclude) {
@@ -67,15 +70,15 @@ public class Ai extends Player{
         return random;
     }
 
-    public Map<String, Integer> possiblessOpponentsKuku() {
-        System.out.println("Not implemented yet");
-        return new HashMap<String, Integer>();
+    public HashMap<String, String> getPossiblessOpponentsKuku() { //need numbers of players, suit or rank to quess
+        HashMap<String, String> possiblessOpponentsKuku;            //need map with players and kuku;
+        //z listy kart oddanych, ostatnia karta to kuku przeciwnika z lewej, 
+        //ostatnia karta otrzymana to nie kuku goscia z prawej
+        //innych kuku to prawdopodobnie nie karty ktore mam na ręce
+        //prawdopodobnie to karty ktore oddlem, zliczac ilosc kolorow i ilosc figur.
+        return 
     }
 
-    public List handleCardsOnHand() {
-        System.out.println("Not implemented yet");
-        return new ArrayList<String>();
-    }
     //// TEMP TESTING PURPOSE
     public Card chooseCard() {
         return playersPile.getCard(0);
@@ -88,7 +91,7 @@ public class Ai extends Player{
         return false;
     }
 
-    public String getPlayerName() {
+    public String getPlayerName() { 
         return name;
     }
 
