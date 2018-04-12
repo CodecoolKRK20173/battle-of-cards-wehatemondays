@@ -215,6 +215,10 @@ public class KukuFrame extends JFrame implements MouseListener {
         }
     }
 
+    private void showComputersCards() {
+
+    }
+
     private void showEmptyHumanPiles() {
         for (CardComponent component : playerCardComponent) {
             component.changeCard(cards.get("empty_pile"));
@@ -230,6 +234,14 @@ public class KukuFrame extends JFrame implements MouseListener {
     }
 
     private void refreshHumanCards() {
+        players = game.getPlayers();
+
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i) instanceof Human) {
+                indexHumanPlayer = i;
+                System.out.println("human" + indexHumanPlayer);
+            }
+        }
         Pile humanPile = players.get(indexHumanPlayer).getPile();
         humanCards = humanPile.getPile();
     }
