@@ -227,7 +227,7 @@ public class KukuFrame extends JFrame implements MouseListener {
         Object source = e.getSource();
         for (int i = 0; i < playerCardComponent.length; i++) {
             if (source == playerCardComponent[i]) {
-                playerCardComponent[i] = new CardComponent(cards.get("card_back"));
+                playerCardComponent[i].changeCard(cards.get("card_back"));
                 destCard = humanCards.get(i);
 
             }
