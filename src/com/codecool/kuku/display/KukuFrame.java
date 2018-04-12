@@ -66,6 +66,8 @@ public class KukuFrame extends JFrame implements MouseListener {
 
         menuItemNewGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                deleteComputersPanel();
+                showEmptyHumanPiles();
                 Object[] possibilities = {1, 2, 3, 4};
                 numberOfComputers = (int)JOptionPane.showInputDialog(
                     null,
@@ -157,6 +159,20 @@ public class KukuFrame extends JFrame implements MouseListener {
             playerCardComponent[indexCardComponent].changeCard(cards.get(nameCard));
             System.out.println(nameCard);
             indexCardComponent++;
+        }
+    }
+
+    private void showEmptyHumanPiles() {
+        for (CardComponent component : playerCardComponent) {
+            component.changeCard(cards.get("empty_pile"));
+        }
+    }
+
+    private void deleteComputersPanel() {
+        if (computersPanel != null) {
+            background.remove(computersPanel);
+            pack();
+            setSize(getPrefferedSize());
         }
     }
 
