@@ -17,14 +17,12 @@ public class KukuFrame extends JFrame implements MouseListener {
     private static final int DEFAULT_HEIGHT = 700;
 
     private int numberOfComputers;
-
     private JMenuBar menuBar;
     private JMenu menuGame;
     private JMenuItem menuItemNewGame, menuItemExit;
     private int indexHumanPlayer;
     private List<Card> humanCards;
     private Card destCard;
-    private JButton button;
     private CardComponent stockCards;
     private CardComponent[] playerCardComponent;
     private CardComponent[][] computerCardComponent;
@@ -38,7 +36,6 @@ public class KukuFrame extends JFrame implements MouseListener {
     private JButton handleMoveButton, reportKukuButton;
     private boolean cardBackInPile = false;
 
-
     public KukuFrame() {
         cardsImages = new CardsImages();
         cards = cardsImages.getCards();
@@ -50,11 +47,7 @@ public class KukuFrame extends JFrame implements MouseListener {
         background.addMouseListener(this);
 
         showMenuCards();
-
-        // addComputersPanels();
-
         addMenuBar();
-
     }
 
     private void addMenuBar() {
@@ -73,40 +66,14 @@ public class KukuFrame extends JFrame implements MouseListener {
                 deleteComputersPanel();
                 showEmptyHumanPiles();
                 deleteButtons();
-                Object[] possibilities = {1, 2, 3, 4};
-                numberOfComputers = (int)JOptionPane.showInputDialog(
-                    null,
-                    "Choose number of computers: ",
-                    "Customized Dialog",
-                    JOptionPane.PLAIN_MESSAGE,
-                    null,
-                    possibilities,
-                    1);
-                    game = new Game(numberOfComputers + 1);
-                    players = game.getPlayers();
-
-                    for (int i = 0; i < players.size(); i++) {
-                        if (players.get(i) instanceof Human) {
-                            indexHumanPlayer = i;
-                            System.out.println("human" + indexHumanPlayer);
-                        }
-                    }
-
-                    refreshHumanCards();
-                    showHumanCards();
-
-                    if (players.get(0) instanceof Ai) {
-                        SuitEnum suit = SuitEnum.HEARTS;
-                        RankEnum rank = RankEnum.ACE;
-                        game.handleRound(new Card(suit, rank));
-                    }
-                    addComputersPanels();
-                    addButtons();
-                    addStockPile();
-                    pack();
-                    setSize(getPrefferedSize());
-
-
+                initializeGame();
+                refreshHumanCards();
+                showHumanCards();
+                addComputersPanels();
+                addButtons();
+                addStockPile();
+                pack();
+                setSize(getPrefferedSize());
             }
         });
 
@@ -134,6 +101,22 @@ public class KukuFrame extends JFrame implements MouseListener {
         }
     }
 
+    private void initializeGame() {
+        Object[] possibilities = {1, 2, 3, 4};
+        numberOfComputers = (int)JOptionPane.showInputDialog(null,
+            "Choose number of computers: ", "Customized Dialog",
+            JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
+
+            game = new Game(numberOfComputers + 1);
+            players = game.getPlayers();
+
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i) instanceof Human) {
+                indexHumanPlayer = i;
+            }
+        }
+    }
+
     private JPanel getComputerCardPanel(CardComponent[] cardComponent, int numberOfComp) {
         JPanel computerCardPanel = new JPanel();
         JPanel pilesCardPanel = new JPanel();
@@ -145,12 +128,12 @@ public class KukuFrame extends JFrame implements MouseListener {
             component.addMouseListener(this);
         }
         computerCardPanel.add(pilesCardPanel, BorderLayout.SOUTH);
+
         return computerCardPanel;
     }
 
     private void showMenuCards() {
         playerCardComponent = new CardComponent[4];
-
         cardsPanel = new JPanel();
         cardsPanel.setBackground(new Color(0, 0, 0, 0));
         background.add(cardsPanel, BorderLayout.SOUTH);
@@ -175,37 +158,39 @@ public class KukuFrame extends JFrame implements MouseListener {
                 }
             }
         });
+
         reportKukuButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 SuitEnum suit = SuitEnum.HEARTS;
                 RankEnum rank = RankEnum.ACE;
-                int lastIndex = 0;
                 game.handleRound(new Card(suit, rank));
                 if (!game.checkIfKuku()) {
                     JOptionPane.showMessageDialog(null, "You are cheater.", "Alert!", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    String ranking = "";
-                    List<Player> playersWithKuku = game.getPlayersWithKuku();
-                    for (int i = 0; i < playersWithKuku.size(); i++) {
-                        if (playersWithKuku.get(i) instanceof Human) {
-                            ranking += (i + 1) + ". Human\n";
-                        } else {
-                            ranking += (i + 1) + ". " + playersWithKuku.get(i).getPlayerName() + "\n";
-                        }
-                        lastIndex = i + 2;
-                    }
-                    JOptionPane.showMessageDialog(null, ranking, "Alert!", JOptionPane.ERROR_MESSAGE);
+                    showRanking();
                 }
             }
         });
+
         buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 2));
-
         buttonsPanel.setBackground(new Color(0, 0, 0, 0));
-        // buttonsPanel.setLayout(new GridLayout(2, 1, 0, 300));
         buttonsPanel.add(handleMoveButton);
         buttonsPanel.add(reportKukuButton);
         background.add(buttonsPanel, BorderLayout.WEST);
+    }
+
+    private void showRanking() {
+        String ranking = "";
+        List<Player> playersWithKuku = game.getPlayersWithKuku();
+        for (int i = 0; i < playersWithKuku.size(); i++) {
+            if (playersWithKuku.get(i) instanceof Human) {
+                ranking += (i + 1) + ". Human\n";
+            } else {
+                ranking += (i + 1) + ". " + playersWithKuku.get(i).getPlayerName() + "\n";
+            }
+        }
+        JOptionPane.showMessageDialog(null, ranking, "Alert!", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void deleteButtons() {
@@ -238,10 +223,6 @@ public class KukuFrame extends JFrame implements MouseListener {
             System.out.println(nameCard);
             indexCardComponent++;
         }
-    }
-
-    private void showComputersCards() {
-
     }
 
     private void showEmptyHumanPiles() {
@@ -282,6 +263,7 @@ public class KukuFrame extends JFrame implements MouseListener {
             showHumanCards();
             cardBackInPile = false;
         }
+
         for (int i = 0; i < playerCardComponent.length; i++) {
             if (source == playerCardComponent[i] && cardBackInPile == false && !game.isRoundDone()) {
                 playerCardComponent[i].changeCard(cards.get("card_back"));
@@ -290,6 +272,7 @@ public class KukuFrame extends JFrame implements MouseListener {
 
             }
         }
+
         if (source == stockPanel && game.isCardCanBeChanged(destCard)) {
             game.changeCard(destCard);
             refreshHumanCards();
