@@ -13,6 +13,7 @@ public class Ai extends Player{
     public Pile playersPile;
     public String name;
 
+
     public Ai(String name){
         super(name);
     }
@@ -34,50 +35,35 @@ public class Ai extends Player{
         return false;
     }
 
-    // public Card handleNextMove(){
+    public Card handleNextMove(){
 
-    //     Map <Integer, List<Integer>> rankSuitPositionMap = new LinkedHashMap<>();
+        Map<String, Integer> colors = this.checkColors();
+        Map<String, Integer> ranks = this.checkRanks();
 
-    //     for (int index = 0; index < playersPile.size(); index++) {
-    //         List<Integer> suitAndPosition = new ArrayList<>();
-    //         suitAndPosition.add(playersPile.getCard(index).getSuit());
-    //         suitAndPosition.add(index);
-    //         rankSuitPositionMap.put(playersPile.getCard(index).getRank(), suitAndPosition);
-    //     }
+        if (colors.size() == 3) {
+            for(Map.Entry<String, Integer> entry : colors.entrySet()) {
+                Integer value = entry.getValue();
+                if (value != 2) {
+                    Integer key = Integer.valueOf(entry.getKey());
+                    return this.playersPile.getCardSuit(key); //CHECK IT!!!
+                }
+            }
+        }
+        else return playersPile.getCard(generateRndomNumber(3));
 
-    //     for (int i = 0; i < playersPile.size(); i++) {
-    //         Map <Integer, List<Integer>> currentCard = new LinkedHashMap<>();
-    //         currentCard = rankSuitPositionMap.get(playersPile.getCard(i).getRank());
-    //         for (int x = 0; playersPile.size(); x++) {
-    //             if (currentCard.equals(playersPile.getCard(x))) {
-    //             }
-    //             if (currentCard.)
-    //         }
-
-    //     }
-    //     Random rndC = new Random();
-
-    //     for (int i = 0; i < 3; i++) {
-    //         if(Card.isSameSuit(playersPile.getCard(0),playersPile.getCard(3)) ||
-    //     Card.isSameRank(playersPile.getCard(0),playersPile.getCard(3))){
-    //         int[] exclusion = {i, i + 1};
-    //         int random = getRandomWithExclusion(rndC,0,4,exclusion);
-    //         return playersPile.getCard(random);
-    //     }
-    // }
-
-    //     for(int i=0; i < 3; i++){
-    //         if(Card.isSameSuit(playersPile.getCard(i),playersPile.getCard(i+1)) ||
-    //         Card.isSameRank(playersPile.getCard(i),playersPile.getCard(i+1))){
-    //         Random nextRnd = new Random();
-    //         int[] exclusion = {i, i + 1};
-    //         int random2 = getRandomWithExclusion(rndC,0,4,exclusion);
-    //         return playersPile.getCard(random2);
-    //         }
-    //     }
-    //     Random finalRnd = new Random();
-    //     return playersPile.getCard(finalRnd.nextInt(4));
-    // }
+        if (ranks.size() == 3) {
+            for(Map.Entry<String, Integer> entry : ranks.entrySet()) {
+                Integer value = entry.getValue();
+                if (value != 2) {
+                    Integer key = Integer.valueOf(entry.getKey());
+                    return this.playersPile.getCardRank(key); //CHECK IT!!!
+                }
+            }
+        }
+        else return playersPile.getCard(generateRndomNumber(3));
+        
+        return playersPile.getCard(generateRndomNumber(3));
+    }
 
     private int getRandomWithExclusion(Random rnd, int start, int end, int... exclude) {
         int random = start + rnd.nextInt(end - start + 1 - exclude.length);
@@ -117,5 +103,11 @@ public class Ai extends Player{
 
     public Pile getPile() {
         return this.playersPile;
+    }
+
+    private int generateRndomNumber(int max) {
+        Random generator = new Random();
+        int random = generator.nextInt(max);
+        return random;
     }
 }

@@ -46,5 +46,27 @@ public class Pile {
         }
         return pileAsString.toString();
     }
+
+    public Card getCardRank(int rank) {
+        int x = 0;
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getRank() == rank) {
+                x = i;
+                return cards.get(i);
+            }
+        }
+        return cards.get(x);
+    }
+
+    public Card getCardSuit(int suit) {
+        int x = 0;
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getSuit() == suit) {
+                x = i;
+                return cards.get(i);
+            }
+        }
+        return cards.get(x);
+    }
 }
 
