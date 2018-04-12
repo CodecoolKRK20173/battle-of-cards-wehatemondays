@@ -10,10 +10,6 @@ import java.util.Random;
 
 public class Ai extends Player{
 
-    public Pile playersPile;
-    public String name;
-
-
     public Ai(String name){
         super(name);
     }

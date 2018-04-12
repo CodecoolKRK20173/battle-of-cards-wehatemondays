@@ -6,16 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Human extends Player{
-
-    public Pile playersPile;
-    public String name;
     
     public Human(String name) {
         super(name);
     }
-
-
-
 
     public Card handleNextMove(){
         System.out.println("Not implemented yet");

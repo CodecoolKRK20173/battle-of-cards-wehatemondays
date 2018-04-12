@@ -78,14 +78,13 @@ public class Game {
     private void dealCards() {
         Collections.shuffle(players);
         Iterator<Card> deckIterator = deck.iterator();
-
-        for (int i = 0; i < 3; i++) {
+        int NUMBEROFCARDSKUKU = 3;
+        for (int i = 0; i < NUMBEROFCARDSKUKU; i++) {
             for (Player x : players) {
                 x.getPile().addCard(deckIterator.next());
                 System.out.println("Adding one card to one player");
             }
         }
-        players.get(0).getPile().addCard(deckIterator.next());
         deckIterator.forEachRemaining(card -> {
             stock.addCard(card);
         });
