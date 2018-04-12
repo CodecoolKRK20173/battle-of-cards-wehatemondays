@@ -198,6 +198,7 @@ public class KukuFrame extends JFrame implements MouseListener {
     private void addStockPile() {
         stockCards = new CardComponent(cards.get("card_back"));
         stockPanel = new JPanel();
+        stockPanel.addMouseListener(this);
         stockPanel.setBackground(new Color(0, 0, 0, 0));
         stockPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         stockPanel.add(stockCards);
@@ -252,6 +253,11 @@ public class KukuFrame extends JFrame implements MouseListener {
 
             }
         }
+        // if (source == stockPanel && game.isCardCanBeChanged(destCard)) {
+        //     game.changeCard(destCard);
+        //     refreshHumanCards();
+        //     showHumanCards();
+        // }
     }
 
     @Override
