@@ -23,7 +23,7 @@ public class KukuFrame extends JFrame implements MouseListener {
     private JMenuItem menuItemNewGame, menuItemExit;
     private int indexHumanPlayer;
     private List<Card> humanCards;
-
+    private Card destCard;
     private JButton button;
     private CardComponent stockCards;
     private CardComponent[] playerCardComponent;
@@ -93,7 +93,7 @@ public class KukuFrame extends JFrame implements MouseListener {
                     showHumanCards();
 
                     if (players.get(0) instanceof Ai) {
-                        game.handleRound(null);
+                        game.handleRound(humanCards.get(0));
                     }
                     addComputersPanels();
                     addButtons();
@@ -160,6 +160,15 @@ public class KukuFrame extends JFrame implements MouseListener {
     private void addButtons() {
         handleMoveButton = new JButton("Handle move");
         reportKukuButton = new JButton("Report KUKU");
+        handleMoveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (destCard != null) {
+                    game.handleRound(destCard);
+                    refreshHumanCards();
+                    showHumanCards();
+                }
+            }
+        });
         buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 2));
 
@@ -216,9 +225,12 @@ public class KukuFrame extends JFrame implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         Object source = e.getSource();
-        if (source.getClass() == CardComponent.class){
-            CardComponent card= (CardComponent)source;
-            card.changeCard(cards.get("clubs1"));
+        for (int i = 0; i < playerCardComponent.length; i++) {
+            if (source == playerCardComponent[i]) {
+                playerCardComponent[i] = new CardComponent(cards.get("card_back"));
+                destCard = humanCards.get(i);
+
+            }
         }
     }
 
