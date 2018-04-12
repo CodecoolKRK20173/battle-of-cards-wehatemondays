@@ -25,16 +25,17 @@ public class KukuFrame extends JFrame implements MouseListener {
     private List<Card> humanCards;
 
     private JButton button;
+    private CardComponent stockCards;
     private CardComponent[] playerCardComponent;
     private CardComponent[][] computerCardComponent;
     private CardsImages cardsImages;
     private Map<String, BufferedImage> cards;
-    private JPanel cardsPanel, computersPanel;
+    private JPanel cardsPanel, computersPanel, buttonsPanel, stockPanel;
     private JLabel background;
     private JLabel[] computersLabel;
-    private JLabel textLabel;
     private Game game;
     private List<Player> players;
+    private JButton handleMoveButton, reportKukuButton;
 
 
     public KukuFrame() {
@@ -48,7 +49,6 @@ public class KukuFrame extends JFrame implements MouseListener {
         background.addMouseListener(this);
 
         showMenuCards();
-        addInforamtionLabel();
 
         // addComputersPanels();
 
@@ -96,8 +96,11 @@ public class KukuFrame extends JFrame implements MouseListener {
                         game.handleRound(null);
                     }
                     addComputersPanels();
+                    addButtons();
+                    addStockPile();
                     pack();
                     setSize(getPrefferedSize());
+
 
             }
         });
@@ -154,10 +157,27 @@ public class KukuFrame extends JFrame implements MouseListener {
         }
     }
 
-    private void addInforamtionLabel() {
-        textLabel = new JLabel("");
-        textLabel.setBounds(0, 0, 100, 100);
-        background.add(textLabel, BorderLayout.EAST);
+    private void addButtons() {
+        handleMoveButton = new JButton("Handle move");
+        reportKukuButton = new JButton("Report KUKU");
+        buttonsPanel = new JPanel();
+        buttonsPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 2));
+
+        buttonsPanel.setBackground(new Color(0, 0, 0, 0));
+        // buttonsPanel.setLayout(new GridLayout(2, 1, 0, 300));
+        buttonsPanel.add(handleMoveButton);
+        buttonsPanel.add(reportKukuButton);
+        background.add(buttonsPanel, BorderLayout.WEST);
+    }
+
+
+    private void addStockPile() {
+        stockCards = new CardComponent(cards.get("card_back"));
+        stockPanel = new JPanel();
+        stockPanel.setBackground(new Color(0, 0, 0, 0));
+        stockPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        stockPanel.add(stockCards);
+        background.add(stockPanel, BorderLayout.CENTER);
     }
 
     private void showHumanCards() {
