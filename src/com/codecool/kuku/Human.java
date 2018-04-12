@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Human extends Player{
-    
+
     public Human(String name) {
         super(name);
     }

@@ -1,9 +1,11 @@
 package com.codecool.kuku;
 
-import java.util.ArrayList;
+
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Collections;
 
 public class Game {
@@ -12,8 +14,10 @@ public class Game {
     private List<Player> players;
     private List<Player> playersWithKuku;
     private Pile stock;
+    private Set<Card> allHumanCards;
 
     public Game(int playersAmmount) {
+        allHumanCards = new HashSet<>();
         stock = new Pile();
         deck = Card.createDeckInPile();
         playersWithKuku = new ArrayList<>();
@@ -26,7 +30,7 @@ public class Game {
         removeFromPlayersList(); //if player has kuku TODO
 
         for (int i = 0; i < players.size(); i++) {
-            
+
             Player currentPlayer = players.get(i);
             gameLog.append(currentPlayer.getPlayerName() + "'s turn:\n'");
 
@@ -39,9 +43,10 @@ public class Game {
             if (currentPlayer instanceof Human) {
                 cardToPass = cardHuman;
                 gameLog.append("You have passed " + cardToPass.toString() + " to ");
+
             }
             else {
-                cardToPass = currentPlayer.chooseCard();
+                cardToPass = currentPlayer.handleNextMove();
                 gameLog.append(players.get(i).getPlayerName() + " passed card to ");
             }
 
@@ -51,6 +56,7 @@ public class Game {
                 gameLog.append(players.get(i+1).getPlayerName() + ". \n\n");
             }
             else {
+                allHumanCards.add(cardToPass);
                 players.get(0).getPile().addCard(cardToPass);
                 players.get(i).getPile().removeFromPile(cardToPass);
                 gameLog.append(players.get(0).getPlayerName() + ". \n\n");
@@ -59,7 +65,8 @@ public class Game {
         String turnLog = gameLog.toString();
     }
 
-     private boolean isRoundDone() {
+     public boolean isRoundDone() {
+         System.out.println(players.size());
         if (players.size() == 1) {
             return true;
         }
@@ -76,12 +83,13 @@ public class Game {
     }
 
     private void dealCards() {
-        Collections.shuffle(players);
+        // Collections.shuffle(players);
         Iterator<Card> deckIterator = deck.iterator();
         int NUMBEROFCARDSKUKU = 3;
         for (int i = 0; i < NUMBEROFCARDSKUKU; i++) {
             for (Player x : players) {
-                x.getPile().addCard(deckIterator.next());
+                Card card = deckIterator.next();
+                x.getPile().addCard(card);
                 System.out.println("Adding one card to one player");
             }
         }
@@ -95,14 +103,34 @@ public class Game {
     // public boolean canHumanKuku(Human human){
     //     return human.checkKuku();
     // }
-    
-    // More likely like thizzz, but I'm not sure if catch this right. 
+
+    // More likely like thizzz, but I'm not sure if catch this right.
     // if not I'll sort that one out tomo
 
         //user has kuku (from GUI)
         // check it!!
 
     };
+
+    public boolean checkIfKuku() {
+        return players.get(0).checkKuku();
+    }
+
+    public boolean isCardCanBeChanged(Card card) {
+        return allHumanCards.contains(card);
+    }
+
+    public void changeCard(Card card) {
+        players.get(0).getPile().removeFromPile(card);
+        Card cardFromStock = stock.getCard(0);
+        players.get(0).getPile().addCard(cardFromStock);
+        stock.removeFromPile(cardFromStock);
+        stock.addCard(card);
+    }
+
+    public List<Player> getPlayersWithKuku() {
+        return playersWithKuku;
+    }
 
     // public ifPlayerGuess() {
     //     //if player guess right suit or rank

@@ -96,7 +96,9 @@ public class KukuFrame extends JFrame implements MouseListener {
                     showHumanCards();
 
                     if (players.get(0) instanceof Ai) {
-                        game.handleRound(humanCards.get(0));
+                        SuitEnum suit = SuitEnum.HEARTS;
+                        RankEnum rank = RankEnum.ACE;
+                        game.handleRound(new Card(suit, rank));
                     }
                     addComputersPanels();
                     addButtons();
@@ -170,6 +172,29 @@ public class KukuFrame extends JFrame implements MouseListener {
                     refreshHumanCards();
                     showHumanCards();
                     cardBackInPile = false;
+                }
+            }
+        });
+        reportKukuButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SuitEnum suit = SuitEnum.HEARTS;
+                RankEnum rank = RankEnum.ACE;
+                int lastIndex = 0;
+                game.handleRound(new Card(suit, rank));
+                if (!game.checkIfKuku()) {
+                    JOptionPane.showMessageDialog(null, "You are cheater.", "Alert!", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    String ranking = "";
+                    List<Player> playersWithKuku = game.getPlayersWithKuku();
+                    for (int i = 0; i < playersWithKuku.size(); i++) {
+                        if (playersWithKuku.get(i) instanceof Human) {
+                            ranking += (i + 1) + ". Human\n";
+                        } else {
+                            ranking += (i + 1) + ". " + playersWithKuku.get(i).getPlayerName() + "\n";
+                        }
+                        lastIndex = i + 2;
+                    }
+                    JOptionPane.showMessageDialog(null, ranking, "Alert!", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -253,23 +278,23 @@ public class KukuFrame extends JFrame implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         Object source = e.getSource();
-        if (cardBackInPile == true) {
+        if (cardBackInPile == true && !game.isRoundDone()) {
             showHumanCards();
             cardBackInPile = false;
         }
         for (int i = 0; i < playerCardComponent.length; i++) {
-            if (source == playerCardComponent[i] && cardBackInPile == false) {
+            if (source == playerCardComponent[i] && cardBackInPile == false && !game.isRoundDone()) {
                 playerCardComponent[i].changeCard(cards.get("card_back"));
                 destCard = humanCards.get(i);
                 cardBackInPile = true;
 
             }
         }
-        // if (source == stockPanel && game.isCardCanBeChanged(destCard)) {
-        //     game.changeCard(destCard);
-        //     refreshHumanCards();
-        //     showHumanCards();
-        // }
+        if (source == stockPanel && game.isCardCanBeChanged(destCard)) {
+            game.changeCard(destCard);
+            refreshHumanCards();
+            showHumanCards();
+        }
     }
 
     @Override

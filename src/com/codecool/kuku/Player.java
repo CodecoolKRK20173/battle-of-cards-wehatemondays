@@ -22,7 +22,7 @@ public abstract class Player{
      * Calculates best move.
      * @return card to give
      */
-   // public abstract Card handleNextMove();
+   public abstract Card handleNextMove();
 
     /**
      * Add  cards to list.
@@ -75,10 +75,12 @@ public abstract class Player{
         List<Integer> noOfCardsInColor = new ArrayList<Integer>(colors.values());
         Map<String, Integer> ranks = checkRanks();
         List<Integer> noOfCardsInRank = new ArrayList<Integer>(ranks.values());
-        
+
         if (noOfCardsInColor.contains(3) || noOfCardsInRank.contains(3)) {
+            System.out.println("Kuku");
             return true;
-            }    
+            }
+        System.out.println("Nie ma Kuku");
         return false;
     }
 }
