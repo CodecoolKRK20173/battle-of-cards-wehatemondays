@@ -1,11 +1,13 @@
 package com.codecool.kuku.display;
 
-
+import com.codecool.kuku.*;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 
 
@@ -19,6 +21,8 @@ public class KukuFrame extends JFrame implements MouseListener {
     private JMenuBar menuBar;
     private JMenu menuGame;
     private JMenuItem menuItemNewGame, menuItemExit;
+    private int indexHumanPlayer;
+    private List<Card> humanCards;
 
     private JButton button;
     private CardComponent[] playerCardComponent;
@@ -28,6 +32,9 @@ public class KukuFrame extends JFrame implements MouseListener {
     private JPanel cardsPanel, computersPanel;
     private JLabel background;
     private JLabel[] computersLabel;
+    private JLabel textLabel;
+    private Game game;
+    private List<Player> players;
 
 
     public KukuFrame() {
@@ -41,6 +48,7 @@ public class KukuFrame extends JFrame implements MouseListener {
         background.addMouseListener(this);
 
         showMenuCards();
+        addInforamtionLabel();
 
         // addComputersPanels();
 
@@ -60,6 +68,8 @@ public class KukuFrame extends JFrame implements MouseListener {
 
         menuItemNewGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                deleteComputersPanel();
+                showEmptyHumanPiles();
                 Object[] possibilities = {1, 2, 3, 4};
                 numberOfComputers = (int)JOptionPane.showInputDialog(
                     null,
@@ -69,6 +79,22 @@ public class KukuFrame extends JFrame implements MouseListener {
                     null,
                     possibilities,
                     1);
+                    game = new Game(numberOfComputers + 1);
+                    players = game.getPlayers();
+
+                    for (int i = 0; i < players.size(); i++) {
+                        if (players.get(i) instanceof Human) {
+                            indexHumanPlayer = i;
+                            System.out.println("human" + indexHumanPlayer);
+                        }
+                    }
+
+                    refreshHumanCards();
+                    showHumanCards();
+
+                    if (players.get(0) instanceof Ai) {
+                        game.handleRound(null);
+                    }
                     addComputersPanels();
                     pack();
                     setSize(getPrefferedSize());
@@ -126,6 +152,41 @@ public class KukuFrame extends JFrame implements MouseListener {
             playerCardComponent[i].addMouseListener(this);
             cardsPanel.add(playerCardComponent[i]);
         }
+    }
+
+    private void addInforamtionLabel() {
+        textLabel = new JLabel("");
+        textLabel.setBounds(0, 0, 100, 100);
+        background.add(textLabel, BorderLayout.EAST);
+    }
+
+    private void showHumanCards() {
+        int indexCardComponent = 0;
+        for (Card card : humanCards) {
+            String nameCard = CardsImages.getNameOfCard(card.getEnumSuit(), card.getEnumRank());
+            playerCardComponent[indexCardComponent].changeCard(cards.get(nameCard));
+            System.out.println(nameCard);
+            indexCardComponent++;
+        }
+    }
+
+    private void showEmptyHumanPiles() {
+        for (CardComponent component : playerCardComponent) {
+            component.changeCard(cards.get("empty_pile"));
+        }
+    }
+
+    private void deleteComputersPanel() {
+        if (computersPanel != null) {
+            background.remove(computersPanel);
+            pack();
+            setSize(getPrefferedSize());
+        }
+    }
+
+    private void refreshHumanCards() {
+        Pile humanPile = players.get(indexHumanPlayer).getPile();
+        humanCards = humanPile.getPile();
     }
 
     public Dimension getPrefferedSize() {

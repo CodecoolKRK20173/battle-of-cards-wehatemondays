@@ -8,12 +8,12 @@ import java.util.Collections;
 
 public class Game {
 
-    List<Card> deck;
-    List<Player> players;
-    List<Player> playersWithKuku;
-    Pile stock;
+    private List<Card> deck;
+    private List<Player> players;
+    private List<Player> playersWithKuku;
+    private Pile stock;
 
-    Game(int playersAmmount) {
+    public Game(int playersAmmount) {
         stock = new Pile();
         deck = Card.createDeckInPile();
         playersWithKuku = new ArrayList<>();
@@ -21,51 +21,46 @@ public class Game {
         dealCards();
     }
 
-    public void handleRound() {
-        while(!isRoundDone()){
+    public void handleRound(Card cardHuman) {
+        StringBuilder gameLog = new StringBuilder();
+        removeFromPlayersList(); //if player has kuku TODO
+
+        for (int i = 0; i < players.size(); i++) {
             
-            for (int i = 0; i < players.size(); i++) {
+            Player currentPlayer = players.get(i);
+            gameLog.append(currentPlayer.getPlayerName() + "'s turn:\n'");
 
-                Player currentPlayer = players.get(i);
+            if (currentPlayer.checkKuku()) playersWithKuku.add(currentPlayer);
+            // /// adding to kuku list
+            //gameLog.append(currentPlayer.getPlayerName() + " have reported Kuku!\n");
+            // playersWithKuku.add(currentPlayer);
+            // /// checking kuku mechanics
+            Card cardToPass; //////// ->>>> what card?
+            if (currentPlayer instanceof Human) {
+                cardToPass = cardHuman;
+                gameLog.append("You have passed " + cardToPass.toString() + " to ");
+            }
+            else {
+                cardToPass = currentPlayer.chooseCard();
+                gameLog.append(players.get(i).getPlayerName() + " passed card to ");
+            }
 
-                // /// adding to kuku list
-                // playersWithKuku.add(currentPlayer);
-                // /// checking kuku mechanics
-                // if (playersWithKuku.contains(currentPlayer)) {
-                //     continue;
-                // }
-
-                Card cardToPass = currentPlayer.chooseCard();
-                System.out.println("Turn: " + currentPlayer.getPlayerName());
-                System.out.println("Start cards:  " + String.valueOf(currentPlayer.getPile().getPileSize()));
-                
-                if (i + 1 < players.size()) {
-                    players.get(i+1).getPile().addCard(cardToPass);
-                    players.get(i).getPile().removeFromPile(cardToPass);
-                    System.out.println("moving card: " + cardToPass);
-                }
-                else {
-                    players.get(0).getPile().addCard(cardToPass);
-                    players.get(i).getPile().removeFromPile(cardToPass);
-                    System.out.println("moving card: " + cardToPass);
-                }
-                
-                System.out.println("Final cards:  " + String.valueOf(currentPlayer.getPile().getPileSize()) + "\n");
-                System.out.println("End player: ");
-                ////// Wordks fine //////
-                // System.out.println(player.getPlayerName());
-                // Pile playersCards = player.getPile();
-                // System.out.println("Players cards: ");
-                // for (int i = 0; i < playersCards.getPileSize(); i++) {
-                //     System.out.println(playersCards.getCard(i));
-                // }
-                // System.out.println("end player: ");
+            if (i + 1 < players.size()) {
+                players.get(i+1).getPile().addCard(cardToPass);
+                players.get(i).getPile().removeFromPile(cardToPass);
+                gameLog.append(players.get(i+1).getPlayerName() + ". \n\n");
+            }
+            else {
+                players.get(0).getPile().addCard(cardToPass);
+                players.get(i).getPile().removeFromPile(cardToPass);
+                gameLog.append(players.get(0).getPlayerName() + ". \n\n");
             }
         }
+        String turnLog = gameLog.toString();
     }
 
-    private boolean isRoundDone() {
-        if (players.size() == playersWithKuku.size() - 1) {
+     private boolean isRoundDone() {
+        if (players.size() == 1) {
             return true;
         }
         return false;
@@ -94,6 +89,46 @@ public class Game {
         deckIterator.forEachRemaining(card -> {
             stock.addCard(card);
         });
+    }
+
+    public void setHumanKuku() {
+    // public boolean canHumanKuku(Human human){
+    //     return human.checkKuku();
+    // }
+    
+    // More likely like thizzz, but I'm not sure if catch this right. 
+    // if not I'll sort that one out tomo
+
+        //user has kuku (from GUI)
+        // check it!!
+
+    };
+
+    // public ifPlayerGuess() {
+    //     //if player guess right suit or rank
+    // }
+
+    public void removeFromPlayersList() {
+
+        if (!playersWithKuku.isEmpty()) {
+            for (int i = 0; i < playersWithKuku.size(); i++) {
+                Player playerWithKuku = playersWithKuku.get(i);
+
+                for (int x = 0; x < players.size(); x++) {
+                    if (players.get(x).equals(playerWithKuku)) {
+                        players.remove(x);
+                    }
+                }
+            }
+        }
+    }
+    public boolean ifPlayerGuess() {
+        //if player guess right suit or rank
+        return true;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
     }
 
 }

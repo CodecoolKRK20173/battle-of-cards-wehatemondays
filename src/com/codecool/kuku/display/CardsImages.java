@@ -1,6 +1,6 @@
 package com.codecool.kuku.display;
 
-
+import com.codecool.kuku.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -48,6 +48,10 @@ public class CardsImages {
 
     public Map<String, BufferedImage> getCards() {
         return cardsImage;
+    }
+
+    public static String getNameOfCard(SuitEnum suit, RankEnum rank) {
+        return suit.getSuitName() + rank.getRank();
     }
 
     public enum Suit {

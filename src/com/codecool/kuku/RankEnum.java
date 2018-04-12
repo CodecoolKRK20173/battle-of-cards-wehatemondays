@@ -6,13 +6,6 @@ public enum RankEnum {
     JACK(11),
     TEN(10),
     NINE(9),
-    EIGHT(8),
-    SEVEN(7),
-    SIX(6),
-    FIVE(5),
-    FOUR(4),
-    THREE(3),
-    TWO(2),
     ACE(1);
 
     private final int rank;
@@ -24,6 +17,4 @@ public enum RankEnum {
     public int getRank() {
         return this.rank;
     }
-
-   
 }
