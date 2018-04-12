@@ -32,6 +32,7 @@ public class KukuFrame extends JFrame implements MouseListener {
     private JPanel cardsPanel, computersPanel;
     private JLabel background;
     private JLabel[] computersLabel;
+    private JLabel textLabel;
     private Game game;
     private List<Player> players;
 
@@ -47,6 +48,7 @@ public class KukuFrame extends JFrame implements MouseListener {
         background.addMouseListener(this);
 
         showMenuCards();
+        addInforamtionLabel();
 
         // addComputersPanels();
 
@@ -150,6 +152,12 @@ public class KukuFrame extends JFrame implements MouseListener {
             playerCardComponent[i].addMouseListener(this);
             cardsPanel.add(playerCardComponent[i]);
         }
+    }
+
+    private void addInforamtionLabel() {
+        textLabel = new JLabel("");
+        textLabel.setBounds(0, 0, 100, 100);
+        background.add(textLabel, BorderLayout.EAST);
     }
 
     private void showHumanCards() {
