@@ -7,7 +7,6 @@ import javax.swing.*;
 
 public class Main{
     public static void main(String[] args){
-       //AWT DEMO!
         EventQueue.invokeLater(new Runnable()
             {
                 public void run() {
@@ -20,11 +19,5 @@ public class Main{
                 }
 
             });
-        //MAIN TEST:
-
-        // Game newGame = new Game(3);
-        // System.out.println("New game created");
-        // newGame.handleRound();
-
     }
 }
