@@ -220,7 +220,6 @@ public class KukuFrame extends JFrame implements MouseListener {
         for (Card card : humanCards) {
             String nameCard = CardsImages.getNameOfCard(card.getEnumSuit(), card.getEnumRank());
             playerCardComponent[indexCardComponent].changeCard(cards.get(nameCard));
-            System.out.println(nameCard);
             indexCardComponent++;
         }
     }
@@ -245,7 +244,6 @@ public class KukuFrame extends JFrame implements MouseListener {
         for (int i = 0; i < players.size(); i++) {
             if (players.get(i) instanceof Human) {
                 indexHumanPlayer = i;
-                System.out.println("human" + indexHumanPlayer);
             }
         }
         Pile humanPile = players.get(indexHumanPlayer).getPile();
