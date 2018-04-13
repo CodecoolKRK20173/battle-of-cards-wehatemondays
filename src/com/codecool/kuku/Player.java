@@ -77,10 +77,8 @@ public abstract class Player{
         List<Integer> noOfCardsInRank = new ArrayList<Integer>(ranks.values());
 
         if (noOfCardsInColor.contains(3) || noOfCardsInRank.contains(3)) {
-            System.out.println("Kuku");
             return true;
             }
-        System.out.println("Nie ma Kuku");
         return false;
     }
 }
