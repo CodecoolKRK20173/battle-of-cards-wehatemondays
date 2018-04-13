@@ -14,22 +14,22 @@ public class Ai extends Player{
         super(name);
     }
    
-    public boolean checkKuku(){
-        if(Card.isSameSuit(playersPile.getCard(0),
-                    playersPile.getCard(1),
-                    playersPile.getCard(2)))
-                    return true; 
+    // public boolean checkKuku(){
+    //     if(Card.isSameSuit(playersPile.getCard(0),
+    //                 playersPile.getCard(1),
+    //                 playersPile.getCard(2)))
+    //                 return true; 
         
-        if(Card.isSameRank(playersPile.getCard(0),
-                    playersPile.getCard(1),
-                    playersPile.getCard(2)) &&
-                    playersPile.getCard(0).getSuit() != playersPile.getCard(1).getSuit() &&
-                    playersPile.getCard(1).getSuit() != playersPile.getCard(2).getSuit() &&
-                    playersPile.getCard(0).getSuit() != playersPile.getCard(2).getSuit())
-                    return true;            
+    //     if(Card.isSameRank(playersPile.getCard(0),
+    //                 playersPile.getCard(1),
+    //                 playersPile.getCard(2)) &&
+    //                 playersPile.getCard(0).getSuit() != playersPile.getCard(1).getSuit() &&
+    //                 playersPile.getCard(1).getSuit() != playersPile.getCard(2).getSuit() &&
+    //                 playersPile.getCard(0).getSuit() != playersPile.getCard(2).getSuit())
+    //                 return true;            
         
-        return false;
-    }
+    //     return false;
+    // }
 
     public Card handleNextMove(){
 
